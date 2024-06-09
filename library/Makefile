@@ -1,6 +1,6 @@
 LIB_SATTN_SHARED := libsattn.so
 
-SATTN_SRC_CPP := ./src/cpu_gemm.cpp ./src/utils.cpp ./src/soft_max.cpp
+SATTN_SRC_CPP := ./src/cpu_gemm.cpp ./src/utils.cpp ./src/cpu_softmax.cpp
 
 SATTN_OBJ_CPP := $(SATTN_SRC_CPP:.cpp=.cpp.o)
 SATTN_DEP_CPP := $(SATTN_SRC_CPP:.cpp=.cpp.d)

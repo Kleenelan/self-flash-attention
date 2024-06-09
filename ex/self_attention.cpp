@@ -3,12 +3,22 @@
 
 #include "cpu_gemm.h"
 #include "utils.h"
-#include "soft_max.h"
+#include "cpu_softmax.h"
 //all matrices are row major.
 
-void cpu_self_attention()
+void cpu_self_attention(float* Q, int ldq,
+						float* K, int ldk,
+						float* V, int ldv,
+						float* S, int lds,
+						float* P, int ldp,
+						float* O, int ldo,
+						int N, int d)
 {
-
+	gemm_nt(Q, ldq, K, ldk, S, lds, N, N, d);// S = Q*K^t     (NxN) = (Nxd) * (dxN)
+					printf("\nS =\n");	print_matrix(S, N, N, lds);
+	cpu_softmax_column(P, ldp, S, lds, N, N);// P(NxN) = softmax(S(NxN))
+					printf("\nP =\n");	print_matrix(S, N, N, lds);
+	gemm_nn(P, ldp, V, ldv, O, ldo, N, d, N);// O = P*V     (Nxd) = (NxN) * (Nxd)
 }
 
 void cublas_self_attention(float* Q, int ldq,
@@ -67,10 +77,15 @@ int main()
 }
 	cublas_self_attention(Q_h, ldq, K_h, ldk, V_h, ldv, N, d);
 
-	gemm_nt(Q_h, ldq, K_h, ldk, S_h, lds, N, N, d);// Q*K^t
+	gemm_nt(Q_h, ldq, K_h, ldk, S_h, lds, N, N, d);// S = Q*K^t     (NxN) = (Nxd) * (dxN)
 	printf("\nS_h =\n");	print_matrix(S_h, N, N, lds);
-	soft_max(P_h, ldp, S_h, lds, N, N);//mn
-	printf("\nP_h =\n");	print_matrix(S_h, N, N, lds);
+	
+	cpu_softmax_column(P_h, ldp, S_h, lds, N, N);// P(NxN) = softmax(S(NxN))
+	printf("\nP_h =\n");	print_matrix(P_h, N, N, ldp);
+	
+	gemm_nn(P_h, ldp, V_h, ldv, O_h, ldo, N, d, N);// O = P*V     (Nxd) = (NxN) * (Nxd)
+	printf("\nO_h =\n");	print_matrix(O_h, N, d, ldo);
+
 
 
 
