@@ -1,6 +1,6 @@
-LIB_SATTN_SHARED := libsattn.so
+LIB_SATTN_SHARED := libs2fattn.so
 
-SATTN_SRC_CPP := ./src/cpu_gemm.cpp ./src/utils.cpp ./src/cpu_softmax.cpp
+SATTN_SRC_CPP := ./src/cpu_gemm.cpp ./src/utils.cpp ./src/cpu_softmax.cpp ./src/cpu_self_attention.cpp
 
 SATTN_OBJ_CPP := $(SATTN_SRC_CPP:.cpp=.cpp.o)
 SATTN_DEP_CPP := $(SATTN_SRC_CPP:.cpp=.cpp.d)
@@ -24,7 +24,7 @@ $(LIB_SATTN_SHARED): $(SATTN_OBJ_CPP)
 install:
 	-mkdir -p ../local/lib64
 	-mkdir -p ../local/include
-	-cp libsattn.so ../local/lib64/
+	-cp $(LIB_SATTN_SHARED) ../local/lib64/
 	-cp include/*.h ../local/include/
 
 .PHONY: uninstall
@@ -33,4 +33,4 @@ uninstall:
 
 .PHONY: clean
 clean:
-	-rm $(SATTN_OBJ_CPP) $(SATTN_DEP_CPP) $(LIB_SATTN_SHARED)
+	-rm -rf $(SATTN_OBJ_CPP) $(SATTN_DEP_CPP) $(LIB_SATTN_SHARED)
