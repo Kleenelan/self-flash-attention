@@ -27,6 +27,9 @@ install:
 	-cp libsattn.so ../local/lib64/
 	-cp include/*.h ../local/include/
 
+.PHONY: uninstall
+uninstall:
+	-rm -rf ../local/
 
 .PHONY: clean
 clean:
