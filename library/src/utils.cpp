@@ -1,4 +1,4 @@
-#include "../include/utils.h"
+#include "utils.h"
 
 void init_matrix(float *A, int M, int N, int lda, int seed)
 {
@@ -18,7 +18,7 @@ void print_matrix(float *A, int M, int N, int lda)
 	{
 		for(int j=0; j<N; j++)
 		{
-			printf("%7.3f ", A[i*lda + j]);
+			printf("%7.5f ", A[i*lda + j]);
 		}
 
 		printf("\n");

@@ -1,4 +1,4 @@
-#include "../include/cpu_gemm.h"
+#include "cpu_gemm.h"
 
 void gemm_nn(float *A, int lda,		//A(M x K) rowMj
 	     	 float *B, int ldb,		//B(K x N) rowMj
