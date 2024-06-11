@@ -1,4 +1,4 @@
-#include "utils.h"
+#include "../include/utils.h"
 
 void init_matrix(float *A, int M, int N, int lda, int seed)
 {

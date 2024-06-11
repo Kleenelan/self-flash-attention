@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "cpu_self_attention.h"
+#include "utils.h"
 
 int main()
 {

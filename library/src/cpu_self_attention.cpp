@@ -1,4 +1,7 @@
 #include "cpu_self_attention.h"
+#include "../driver/include/cpu_gemm.h"
+#include "../driver/include/utils.h"
+#include "../driver/include/cpu_softmax.h"
 //all matrices are row major.
 
 void cpu_self_attention(float* Q, int ldq,

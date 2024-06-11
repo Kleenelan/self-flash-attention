@@ -1,6 +1,9 @@
 LIB_SATTN_SHARED := libs2fattn.so
 
-SATTN_SRC_CPP := ./src/cpu_gemm.cpp ./src/utils.cpp ./src/cpu_softmax.cpp ./src/cpu_self_attention.cpp
+SATTN_SRC_CPP := ./driver/src/cpu_gemm.cpp \
+				 ./driver/src/utils.cpp \
+				 ./driver/src/cpu_softmax.cpp \
+				 ./src/cpu_self_attention.cpp
 
 SATTN_OBJ_CPP := $(SATTN_SRC_CPP:.cpp=.cpp.o)
 SATTN_DEP_CPP := $(SATTN_SRC_CPP:.cpp=.cpp.d)
@@ -26,6 +29,7 @@ install:
 	-mkdir -p ../local/include
 	-cp $(LIB_SATTN_SHARED) ../local/lib64/
 	-cp include/*.h ../local/include/
+	-cp driver/include/utils.h ../local/include/
 
 .PHONY: uninstall
 uninstall:
